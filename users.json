@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1783579610182",
+    "name": "Rinku",
+    "email": "rohillarinku446@gmail.com",
+    "password": "123456",
+    "role": "seller"
+  },
+  {
+    "id": "1783579764639",
+    "name": "Rinku",
+    "email": "satyawan24050@cqst.in",
+    "password": "123456",
+    "role": "user"
+  },
+  {
+    "id": "1783580457690",
+    "name": "vishal",
+    "email": "pakonab735@epaynine.com",
+    "password": "123456",
+    "role": "user"
+  },
+  {
+    "id": "1783580807229",
+    "name": "Ronak",
+    "email": "rinku24044@cqst.in",
+    "password": "123456",
+    "role": "seller"  
+  },
+  {
+    "id": "1783661892903",
+    "name": "satyawn",
+    "email": "satyawankumar719@gmail.com",
+    "password": "Satyawan",
+    "role": "user",
+    "phone": "1234567898",
+    "address": "pnp",
+    "bio": "asdfghj",
+    "createdAt": "2026-07-10T05:38:12.924Z"
+  },
+  {
+    "id": "1783665462127",
+    "name": "Harsh",
+    "email": "harshrohilla220@gmail.com",
+    "password": "Rinku@123",
+    "role": "user",
+    "phone": "9050216760",
+    "address": "karnal",
+    "bio": "qwkfewj sz",
+    "createdAt": "2026-07-10T06:37:42.131Z"
+  }
+]

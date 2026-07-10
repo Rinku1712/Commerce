@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>OTP Verification</title>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96 border-t-4 border-blue-600">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-blue-600">🔒 OTP Verification</h1>
+            <p class="text-xs text-gray-500 mt-2">
+                <% if (mode === 'signup') { %>
+                    We have sent a 6-digit verification code to <span class="font-semibold text-gray-700"><%= email %></span>. Enter it to complete your signup.
+                <% } else { %>
+                    We have sent a secure login OTP to your email address. Kindly verify to continue.
+                <% } %>
+            </p>
+        </div>
+        <% if (otpPreview) { %>
+            <div class="mb-4 rounded border border-yellow-300 bg-yellow-50 p-3 text-sm text-yellow-700">
+                <p class="font-semibold">OTP preview mode</p>
+             </p>
+            </div>
+        <% } %>
+
+        <form action="<%= action %>" method="POST" class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-center mb-2">
+                    <% if (mode === 'signup') { %>Enter Signup OTP<% } else { %>Enter Login OTP<% } %>
+                </label>
+                <input type="text" name="otp" maxLength="6" class="w-full p-3 border rounded text-center text-2xl font-black tracking-widest focus:outline-none focus:border-blue-500" placeholder="000000" required>
+            </div>
+            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 rounded transition shadow-md">
+                <% if (mode === 'signup') { %>Verify & Create Account<% } else { %>Verify & Login<% } %>
+            </button>
+        </form>
+    </div>
+</body>
+</html>

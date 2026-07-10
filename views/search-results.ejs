@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Search Results - SRZONE</title>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+    <nav class="bg-[#2874f0] sticky top-0 z-50 text-white py-3 px-4 md:px-16 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <div class="flex items-center space-x-1">
+                <a href="/dashboard" class="text-xl font-bold italic tracking-wide hover:opacity-90">
+                    SR<span class="text-[#ffe500] font-black not-italic">ZONE</span>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/2 relative search-container">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    placeholder="Search for products, brands and more" 
+                    class="w-full py-2 px-4 pr-10 text-black text-sm rounded shadow-sm focus:outline-none search-input"
+                    value="<%= query %>"
+                    autocomplete="off">
+                <i class="fa fa-search search-icon"></i>
+                
+                <!-- Suggestions Dropdown -->
+                <div id="suggestionsDropdown" class="search-suggestions">
+                    <div class="p-3 text-gray-500 text-sm text-center">
+                        Start typing to see suggestions...
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6 text-sm font-semibold">
+                <div class="flex items-center space-x-1 bg-white/10 px-3 py-1.5 rounded border border-white/20">
+                    <i class="fa fa-user-circle text-xl text-[#ffe500]"></i>
+                    <span class="capitalize"><%= user ? user.name : 'Guest' %> <%= user ? `(${user.role})` : '' %></span>
+                </div>
+
+                <% if(user && user.role === 'seller') { %>
+                    <a href="/products/add" class="bg-[#ffe500] hover:bg-[#fcd34d] text-black px-4 py-2 rounded font-bold transition flex items-center gap-2 shadow animate-pulse">
+                        <i class="fa-solid fa-plus-circle"></i> Add Product
+                    </a>
+                <% } %>
+
+                <% if(user) { %>
+                    <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-1.5 rounded transition font-medium flex items-center gap-1">
+                        <i class="fa-solid fa-sign-out-alt"></i> Logout
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+        
+        <!-- Search Results Header -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-extrabold text-gray-800">
+                        Search Results
+                    </h2>
+                    <p class="text-sm text-gray-600 mt-1">
+                        Results for: <span class="font-bold text-[#2874f0]">"<%= query %>"</span>
+                        <% if(products && products.length > 0) { %>
+                            <span class="ml-2 text-gray-500">(<%= products.length %> results found)</span>
+                        <% } %>
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <select class="border border-gray-300 px-3 py-2 rounded text-sm">
+                        <option value="">Sort by Relevance</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Grid -->
+        <% if(products && products.length > 0) { %>
+            <div class="search-results-grid">
+                <% products.forEach(product => { %>
+                    <div class="search-result-item">
+                        <div class="relative">
+                            <img src="<%= product.image %>" alt="<%= product.name %>" class="search-result-image">
+                            <span class="absolute top-2 right-2 bg-[#2874f0] text-white text-[10px] font-bold px-2 py-1 rounded">
+                                F-Assured
+                            </span>
+                        </div>
+                        <div class="search-result-info">
+                            <h3 class="search-result-name" title="<%= product.name %>">
+                                <%= product.name %>
+                            </h3>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-green-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                    4.2 <i class="fa fa-star text-[8px]"></i>
+                                </span>
+                                <span class="text-[11px] text-gray-500">(1.4K reviews)</span>
+                            </div>
+                            <div class="search-result-price">
+                                ₹<%= product.price %>
+                            </div>
+                            <p class="text-[11px] text-gray-500 mt-2">
+                                <i class="fa-solid fa-truck"></i> Free delivery
+                            </p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="col-span-full bg-white border rounded-lg text-center p-12 shadow-sm">
+                <img src="https://cdn-icons-png.flaticon.com/512/4436/4436481.png" class="w-24 h-24 mx-auto mb-4 opacity-40" alt="No Results">
+                <h3 class="text-lg font-bold text-gray-700">No products found</h3>
+                <p class="text-gray-400 text-sm mt-2">We couldn't find any products matching "<%= query %>"</p>
+                <p class="text-gray-400 text-sm mt-3">Try different keywords or browse from the <a href="/dashboard" class="text-[#2874f0] font-bold hover:underline">main catalog</a></p>
+            </div>
+        <% } %>
+
+        <!-- Filters Section (Optional) -->
+        <% if(products && products.length > 0) { %>
+            <div class="mt-8 bg-white rounded-lg shadow-sm p-4">
+                <h4 class="font-bold text-gray-700 mb-3">Narrow your search</h4>
+                <div class="flex flex-wrap gap-2">
+                    <button class="bg-gray-100 hover:bg-[#2874f0] hover:text-white text-gray-700 px-3 py-2 rounded text-sm transition">
+                        Under ₹500
+                    </button>
+                    <button class="bg-gray-100 hover:bg-[#2874f0] hover:text-white text-gray-700 px-3 py-2 rounded text-sm transition">
+                        ₹500 - ₹1000
+                    </button>
+                    <button class="bg-gray-100 hover:bg-[#2874f0] hover:text-white text-gray-700 px-3 py-2 rounded text-sm transition">
+                        ₹1000 - ₹5000
+                    </button>
+                    <button class="bg-gray-100 hover:bg-[#2874f0] hover:text-white text-gray-700 px-3 py-2 rounded text-sm transition">
+                        Above ₹5000
+                    </button>
+                </div>
+            </div>
+        <% } %>
+
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 text-xs text-center py-6 mt-12 border-t-4 border-[#2874f0]">
+        <p class="font-bold text-white mb-1">Flipkart Plus Clone — Prompt Engineering Special Edition</p>
+        <p>&copy; 2026 Platform Execution Engine. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsDropdown = document.getElementById('suggestionsDropdown');
+        let debounceTimer;
+
+        async function fetchSuggestions(query) {
+            if (query.length < 1) {
+                suggestionsDropdown.classList.remove('active');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/products/suggestions?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                displaySuggestions(data.suggestions, query);
+            } catch (err) {
+                console.error('Error fetching suggestions:', err);
+            }
+        }
+
+        function displaySuggestions(suggestions, query) {
+            if (suggestions.length === 0) {
+                suggestionsDropdown.innerHTML = `
+                    <div class="no-results">
+                        <i class="fa fa-search"></i> No suggestions found
+                    </div>
+                `;
+                suggestionsDropdown.classList.add('active');
+                return;
+            }
+
+            let html = '';
+            suggestions.forEach((suggestion) => {
+                const highlightedText = highlightText(suggestion, query);
+                html += `
+                    <div class="suggestion-item" onclick="selectSuggestion('${suggestion.replace(/'/g, "\\'")}')">
+                        <i class="fa fa-search"></i>
+                        <span>${highlightedText}</span>
+                    </div>
+                `;
+            });
+
+            suggestionsDropdown.innerHTML = html;
+            suggestionsDropdown.classList.add('active');
+        }
+
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function selectSuggestion(suggestion) {
+            searchInput.value = suggestion;
+            performSearch(suggestion);
+        }
+
+        async function performSearch(query) {
+            if (!query.trim()) return;
+            window.location.href = `/products/results?q=${encodeURIComponent(query)}`;
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(debounceTimer);
+            const query = e.target.value.trim();
+            
+            debounceTimer = setTimeout(() => {
+                if (query) {
+                    fetchSuggestions(query);
+                } else {
+                    suggestionsDropdown.classList.remove('active');
+                }
+            }, 300);
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+
+        document.querySelector('.search-icon').addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                suggestionsDropdown.classList.remove('active');
+            }
+        });
+
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.trim()) {
+                suggestionsDropdown.classList.add('active');
+            }
+        });
+    </script>
+
+</body>
+</html>

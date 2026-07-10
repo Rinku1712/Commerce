@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>SRZONE</title>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+    <nav class="bg-[#2874f0] sticky top-0 z-50 text-white py-3 px-4 md:px-16 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <div class="flex items-center space-x-1">
+                <a href="/dashboard" class="text-xl font-bold italic tracking-wide hover:opacity-90">
+                    SR<span class="text-[#ffe500] font-black not-italic">ZONE</span>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/2 relative search-container">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    placeholder="Search for products, brands and more" 
+                    class="w-full py-2 px-4 pr-10 text-black text-sm rounded shadow-sm focus:outline-none search-input"
+                    autocomplete="off">
+                <i class="fa fa-search search-icon"></i>
+                
+                <!-- Suggestions Dropdown -->
+                <div id="suggestionsDropdown" class="search-suggestions">
+                    <div class="p-3 text-gray-500 text-sm text-center">
+                        Start typing to see suggestions...
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6 text-sm font-semibold">
+                <div class="flex items-center space-x-1 bg-white/10 px-3 py-1.5 rounded border border-white/20">
+                    <i class="fa fa-user-circle text-xl text-[#ffe500]"></i>
+                    <span class="capitalize"><%= user.name %> (<%= user.role %>)</span>
+                </div>
+
+                <% if(user.role === 'seller') { %>
+                    <a href="/products/add" class="bg-[#ffe500] hover:bg-[#fcd34d] text-black px-4 py-2 rounded font-bold transition flex items-center gap-2 shadow animate-pulse">
+                        <i class="fa-solid fa-plus-circle"></i> Add Product
+                    </a>
+                <% } %>
+
+                <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-1.5 rounded transition font-medium flex items-center gap-1">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-white shadow-sm border-b hidden md:block py-3 px-8">
+        <div class="max-w-6xl mx-auto flex justify-between text-center text-xs font-bold text-gray-700">
+            <div class="cursor-pointer hover:text-[#2874f0]"><i class="fa-solid fa-bolt text-lg text-yellow-500 block mb-1"></i>Top Offers</div>
+            <div class="cursor-pointer hover:text-[#2874f0]"><i class="fa-solid fa-mobile-screen text-lg text-blue-500 block mb-1"></i>Mobiles</div>
+            <div class="cursor-pointer hover:text-[#2874f0]"><i class="fa-solid fa-laptop text-lg text-indigo-500 block mb-1"></i>Electronics</div>
+            <div class="cursor-pointer hover:text-[#2874f0]"><i class="fa-solid fa-shirt text-lg text-green-500 block mb-1"></i>Fashion</div>
+            <div class="cursor-pointer hover:text-[#2874f0]"><i class="fa-solid fa-couch text-lg text-amber-600 block mb-1"></i>Home & Furniture</div>
+            <div class="cursor-pointer hover:text-[#2874f0]"><i class="fa-solid fa-gem text-lg text-pink-500 block mb-1"></i>Jewelry</div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+        
+        <div class="flex justify-between items-center border-b pb-4 mb-6 bg-white p-4 rounded shadow-sm">
+            <div>
+                <h2 class="text-xl md:text-2xl font-extrabold text-gray-800 tracking-tight">Deals of the Day</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Handpicked premium catalogue updates</p>
+            </div>
+            <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-bold flex items-center gap-1">
+                <i class="fa-solid fa-shield-halved"></i> 100% Secure Checkout
+            </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <% if(products && products.length > 0) { %>
+                <% products.forEach(product => { %>
+                    <div class="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between p-4 relative">
+                        
+                        <span class="absolute top-3 left-3 bg-[#2874f0] text-white text-[10px] font-black px-2 py-0.5 rounded shadow z-10">
+                            F-Assured <i class="fa fa-check text-yellow-300"></i>
+                        </span>
+
+                        <div class="h-48 w-full bg-gray-50 rounded overflow-hidden flex items-center justify-center p-2 mb-4 group-hover:scale-105 transition-transform duration-300">
+                            <img src="<%= product.image %>" class="max-h-full max-w-full object-contain mix-blend-multiply" alt="<%= product.name %>">
+                        </div>
+
+                        <div class="space-y-1">
+                            <h3 class="font-bold text-gray-800 text-base group-hover:text-[#2874f0] transition-colors duration-200 truncate" title="<%= product.name %>">
+                                <%= product.name %>
+                            </h3>
+                            
+                            <div class="flex items-center space-x-1 text-xs">
+                                <span class="bg-green-600 text-white px-1.5 py-0.5 rounded text-[10px] font-bold flex items-center gap-0.5">
+                                    4.2 <i class="fa fa-star text-[8px]"></i>
+                                </span>
+                                <span class="text-gray-400 font-medium">(1,420 Ratings)</span>
+                            </div>
+
+                            <div class="flex items-baseline space-x-2 pt-1">
+                                <span class="text-[#388e3c] font-black text-xl">₹<%= product.price %></span>
+                                <span class="text-xs text-gray-400 line-through">₹<%= parseInt(product.price) + 499 %></span>
+                                <span class="text-emerald-600 font-bold text-xs">Save ₹499</span>
+                            </div>
+
+                            <p class="text-[11px] text-gray-500 font-medium">Free Delivery within 2 Days</p>
+                        </div>
+
+                        <div class="mt-4 pt-2 border-t">
+                            <button class="w-full bg-[#ff9f00] hover:bg-[#f39200] text-white font-bold py-2.5 rounded text-sm transition shadow flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                            </button>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="col-span-full bg-white border rounded-lg text-center p-12 shadow-sm">
+                    <img src="https://cdn-icons-png.flaticon.com/512/11550/11550243.png" class="w-24 h-24 mx-auto mb-4 opacity-40" alt="Empty Store">
+                    <h3 class="text-lg font-bold text-gray-700">No active deals found!</h3>
+                    <p class="text-gray-400 text-sm mt-1">If you registered as a vendor/seller, click the 'Add Product' badge in navigation bar to build catalogue items.</p>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 text-xs text-center py-6 mt-12 border-t-4 border-[#2874f0]">
+        <p class="font-bold text-white mb-1">Flipkart Plus Clone — Prompt Engineering Special Edition</p>
+        <p>&copy; 2026 Platform Execution Engine. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsDropdown = document.getElementById('suggestionsDropdown');
+        let debounceTimer;
+
+        // Fetch suggestions
+        async function fetchSuggestions(query) {
+            if (query.length < 1) {
+                suggestionsDropdown.classList.remove('active');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/products/suggestions?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                displaySuggestions(data.suggestions, query);
+            } catch (err) {
+                console.error('Error fetching suggestions:', err);
+            }
+        }
+
+        // Display suggestions dropdown
+        function displaySuggestions(suggestions, query) {
+            if (suggestions.length === 0) {
+                suggestionsDropdown.innerHTML = `
+                    <div class="no-results">
+                        <i class="fa fa-search"></i> No suggestions found
+                    </div>
+                `;
+                suggestionsDropdown.classList.add('active');
+                return;
+            }
+
+            let html = '';
+            suggestions.forEach((suggestion, index) => {
+                const highlightedText = highlightText(suggestion, query);
+                html += `
+                    <div class="suggestion-item" onclick="selectSuggestion('${suggestion.replace(/'/g, "\\'")}')">
+                        <i class="fa fa-search"></i>
+                        <span>${highlightedText}</span>
+                    </div>
+                `;
+            });
+
+            suggestionsDropdown.innerHTML = html;
+            suggestionsDropdown.classList.add('active');
+        }
+
+        // Highlight matching text
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        // Select suggestion and search
+        function selectSuggestion(suggestion) {
+            searchInput.value = suggestion;
+            performSearch(suggestion);
+        }
+
+        // Perform search
+        async function performSearch(query) {
+            if (!query.trim()) return;
+            
+            try {
+                const response = await fetch(`/products/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                // Store search and redirect to results
+                sessionStorage.setItem('searchResults', JSON.stringify(data.products));
+                sessionStorage.setItem('searchQuery', query);
+                window.location.href = `/products/results?q=${encodeURIComponent(query)}`;
+            } catch (err) {
+                console.error('Search error:', err);
+                alert('Search failed. Please try again.');
+            }
+        }
+
+        // Input event listener with debounce
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(debounceTimer);
+            const query = e.target.value.trim();
+            
+            debounceTimer = setTimeout(() => {
+                if (query) {
+                    fetchSuggestions(query);
+                } else {
+                    suggestionsDropdown.classList.remove('active');
+                }
+            }, 300);
+        });
+
+        // Enter key to search
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+
+        // Search icon click
+        document.querySelector('.search-icon').addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                suggestionsDropdown.classList.remove('active');
+            }
+        });
+
+        // Focus to show suggestions
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.trim()) {
+                suggestionsDropdown.classList.add('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
