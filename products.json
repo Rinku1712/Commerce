@@ -5,5 +5,19 @@
     "price": "350",
     "image": "/uploads/productImage-1783662425454.webp",
     "sellerId": "1783579610182"
+  },
+  {
+    "id": "1783704391168",
+    "name": "T-shirt",
+    "price": "1000",
+    "image": "/uploads/productImage-1783704391159.webp",
+    "sellerId": "1783579610182"
+  },
+  {
+    "id": "1783750275233",
+    "name": "Jeans",
+    "price": "1500",
+    "image": "/uploads/productImage-1783750275221.jpeg",
+    "sellerId": "1783665462127"
   }
 ]

@@ -1,0 +1,90 @@
+[
+  {
+    "orderId": "OD680988",
+    "userId": "1783579610182",
+    "userName": "Rinku",
+    "productId": "1783704391168",
+    "productName": "T-shirt",
+    "price": "1000",
+    "image": "/uploads/productImage-1783704391159.webp",
+    "sellerId": "1783579610182",
+    "status": "Dispatched",
+    "date": "10/7/2026",
+    "currentLocation": "sonipat"
+  },
+  {
+    "orderId": "OD249996",
+    "userId": "1783580807229",
+    "userName": "Ronak",
+    "productId": "1783704391168",
+    "productName": "T-shirt",
+    "price": "1000",
+    "image": "/uploads/productImage-1783704391159.webp",
+    "sellerId": "1783579610182",
+    "status": "Ordered / Payment Verified Successfully",
+    "date": "11/7/2026"
+  },
+  {
+    "orderId": "OD717115",
+    "userId": "1783661892903",
+    "userName": "satyawn",
+    "productId": "1783704391168",
+    "productName": "T-shirt",
+    "price": 1000,
+    "image": "/uploads/productImage-1783704391159.webp",
+    "sellerId": "1783579610182",
+    "status": "Ordered (Qty: 1) - Payment Verified",
+    "date": "11/7/2026"
+  },
+  {
+    "orderId": "OD921138",
+    "userId": "1783661892903",
+    "userName": "satyawn",
+    "productId": "1783704391168",
+    "productName": "T-shirt",
+    "price": "1000",
+    "image": "/uploads/productImage-1783704391159.webp",
+    "sellerId": "1783579610182",
+    "status": "Ordered / Payment Verified Successfully",
+    "date": "11/7/2026"
+  },
+  {
+    "orderId": "OD413764",
+    "userId": "1783580807229",
+    "userName": "Ronak",
+    "productId": "1783750275233",
+    "productName": "Jeans",
+    "price": "1500",
+    "image": "/uploads/productImage-1783750275221.jpeg",
+    "sellerId": "1783665462127",
+    "status": "Delivered",
+    "date": "11/7/2026",
+    "currentLocation": "Panipat"
+  },
+  {
+    "orderId": "OD124282",
+    "userId": "1783579610182",
+    "userName": "Rinku",
+    "productId": "1783662425457",
+    "productName": "T-shirt",
+    "price": 350,
+    "image": "/uploads/productImage-1783662425454.webp",
+    "sellerId": "1783579610182",
+    "status": "Ordered",
+    "currentLocation": "Seller Warehouse",
+    "date": "11/7/2026"
+  },
+  {
+    "orderId": "OD214955",
+    "userId": "1783580807229",
+    "userName": "Ronak",
+    "productId": "1783662425457",
+    "productName": "T-shirt",
+    "price": "350",
+    "image": "/uploads/productImage-1783662425454.webp",
+    "sellerId": "1783579610182",
+    "status": "Dispatched",
+    "currentLocation": "sonipat",
+    "date": "12/7/2026"
+  }
+]

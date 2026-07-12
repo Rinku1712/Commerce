@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>My Wishlist Inventory</title>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-[#2874f0] text-white py-4 px-8 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/dashboard" class="text-xl font-bold"><i class="fa fa-arrow-left text-sm mr-2"></i> Back to SR<span class="text-[#ffe500] font-black not-italic">ZONE</span></a>
+            <span class="text-sm font-semibold">Wishlist Inventory File Stream</span>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto mt-8 p-4">
+        <div class="bg-white shadow rounded-lg p-6">
+            <h2 class="text-xl font-black text-gray-800 border-b pb-3 mb-6"><i class="fa fa-heart text-red-500"></i> My Saved Favourites Catalogue (<%= products.length %> Items)</h2>
+            
+            <% if(products && products.length > 0) { %>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <% products.forEach(product => { %>
+                        <div class="border rounded-lg p-4 bg-gray-50 flex space-x-4 items-center shadow-sm">
+                            <img src="<%= product.image %>" class="w-24 h-24 object-contain bg-white rounded p-1 border" alt="">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-gray-800 text-sm truncate"><%= product.name %></h3>
+                                <p class="text-green-600 font-extrabold text-base mt-1">₹<%= product.price %></p>
+                                
+                                <form action="/products/buy/<%= product.id %>" method="POST" class="mt-3">
+                                    <button type="submit" class="bg-[#ff9f00] text-white text-xs px-4 py-1.5 rounded font-bold hover:bg-orange-600 transition">Move To Checkout</button>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="text-center py-16 text-gray-400">
+                    <i class="fa fa-heart-broken text-5xl mb-3 block text-gray-300"></i>
+                    <p class="text-sm">Your internal wishlist repository array is currently empty.</p>
+                    <a href="/dashboard" class="text-[#2874f0] text-xs font-bold inline-block mt-2 hover:underline">Browse Trending Items now &rarr;</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

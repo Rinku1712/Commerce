@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Flipkart Shopping Cart</title>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    
+    <nav class="bg-[#2874f0] text-white py-4 px-8 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/dashboard" class="text-xl font-bold italic"><i class="fa fa-arrow-left text-sm mr-2"></i> SR<span class="text-yellow-400">ZONE</span></a>
+            <span class="text-sm font-semibold">Secure checkout grid</span>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto mt-8 p-4 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div class="lg:col-span-2 space-y-4">
+            <div class="bg-white p-4 rounded shadow-sm border">
+                <h2 class="text-lg font-bold text-gray-800 border-b pb-2">Flipkart Basket Items (<%= products.length %>)</h2>
+                
+                <% if(products && products.length > 0) { %>
+                    <div class="divide-y">
+                        <% products.forEach(item => { %>
+                            <div class="py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="flex items-center space-x-4">
+                                    <img src="<%= item.image %>" class="w-20 h-20 object-contain border p-1 rounded bg-white">
+                                    <div>
+                                        <h3 class="font-bold text-gray-800 text-base truncate max-w-xs"><%= item.name %></h3>
+                                        <p class="text-green-600 font-bold mt-1 text-lg">₹<%= item.price %></p>
+                                        
+                                        <div class="flex items-center space-x-2 mt-3">
+                                            <form action="/products/cart/update/<%= item.cartItemId %>/dec" method="POST">
+                                                <button type="submit" class="w-7 h-7 bg-gray-200 rounded-full font-black text-gray-700 hover:bg-gray-300 transition flex items-center justify-center">-</button>
+                                            </form>
+                                            <span class="px-3 py-0.5 border font-bold text-sm bg-gray-50 rounded"><%= item.quantity %></span>
+                                            <form action="/products/cart/update/<%= item.cartItemId %>/inc" method="POST">
+                                                <button type="submit" class="w-7 h-7 bg-gray-200 rounded-full font-black text-gray-700 hover:bg-gray-300 transition flex items-center justify-center">+</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fa fa-shopping-basket text-4xl mb-2"></i>
+                        <p>Your basket is currently empty.</p>
+                        <a href="/dashboard" class="text-[#2874f0] font-bold text-sm mt-2 block">Shop Now &rarr;</a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow-sm border h-fit space-y-4">
+            <h3 class="text-gray-400 font-bold uppercase tracking-wider text-xs border-b pb-2">Price Details</h3>
+            <div class="space-y-3 text-sm border-b pb-4">
+                <div class="flex justify-between text-gray-700">
+                    <span>Price (All Items)</span>
+                    <span>₹<%= totalPrice %></span>
+                </div>
+                <div class="flex justify-between text-green-600">
+                    <span>Platform Discount (10%)</span>
+                    <span>- ₹<%= discount %></span>
+                </div>
+                <div class="flex justify-between text-gray-700">
+                    <span>Delivery Charges</span>
+                    <span class="<%= delivery === 0 ? 'text-green-600 font-bold' : '' %>">
+                        <%= delivery === 0 ? 'FREE' : '₹' + delivery %>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center text-lg font-black text-gray-800 border-b pb-4">
+                <span>Total Amount</span>
+                <span class="text-[#388e3c]">₹<%= (totalPrice - discount) + delivery %></span>
+            </div>
+
+            <p class="text-xs text-green-600 font-bold"><i class="fa fa-shield"></i> You will save ₹<%= discount %> on this secure transaction</p>
+            
+            <% if(products.length > 0) { %>
+                <form action="/products/cart/checkout" method="POST" class="pt-2">
+                    <button type="submit" class="w-full bg-[#fb641b] hover:bg-orange-600 text-white font-bold py-3 rounded text-center transition shadow uppercase tracking-wide text-sm">
+                        Place Order Matrix
+                    </button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

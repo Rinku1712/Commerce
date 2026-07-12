@@ -25,7 +25,7 @@
     "name": "Ronak",
     "email": "rinku24044@cqst.in",
     "password": "123456",
-    "role": "seller"  
+    "role": "user"  
   },
   {
     "id": "1783661892903",
@@ -42,8 +42,8 @@
     "id": "1783665462127",
     "name": "Harsh",
     "email": "harshrohilla220@gmail.com",
-    "password": "Rinku@123",
-    "role": "user",
+    "password": "123456",
+    "role": "seller",
     "phone": "9050216760",
     "address": "karnal",
     "bio": "qwkfewj sz",
